@@ -21,9 +21,11 @@ export default class Main extends Component {
   handleAdd = () => {
     const {newTask, tasks} = this.state;
 
+    //Adiciona a tarefa ao array de tarefas
     this.setState({
       tasks: [
         ...tasks,
+        //Adiciono um objeto para poder criar uma chave unica pra cada tarefa
         {
           id: Math.random(),
           task: newTask,
@@ -32,11 +34,14 @@ export default class Main extends Component {
       newTask: '',
     });
 
+    //Fecha o teclado após adicionar uma tarefa
     Keyboard.dismiss();
   };
 
   handleDelete = task => {
     const {tasks} = this.state;
+
+    //Tendo criado uma chave única, evita bugs na hora de excluir
 
     tasks.splice(tasks.indexOf(task), 1);
 
@@ -65,6 +70,7 @@ export default class Main extends Component {
           keyExtractor={task => task.id}
           renderItem={({item}) => (
             <Task>
+              {/* Por ser um objeto, precisa passar item.task */}
               <Name>{item.task}</Name>
               <DeleteButton
                 title="Excluir"
